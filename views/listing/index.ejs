@@ -1,0 +1,125 @@
+<% layout('/layout/boilerplate') -%>
+<body>
+    <style>
+        #filters{
+            display : flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter{
+            text-align: center;
+            margin-right: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+        .filter:hover{
+            opacity: 1;
+            cursor: pointer;
+        }
+        
+        .filter p{
+            font-size: 0.8rem;
+        }
+
+        #tax-control{
+            border : 1px solid black;
+            border-radius: 1rem;
+            height: 3.5rem;
+            padding: 1rem;
+            margin-left: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tax-info{
+            display: none;
+        }
+    </style>
+    <div id="filters">
+        
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-water-ladder"></i></div>
+            <p>Amazing pools</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-tractor"></i></div>
+            <p>Farms</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-monument"></i></div>
+            <p>Iconic cities</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-umbrella-beach"></i></div>
+            <p>Beaches</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>Castle</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-regular fa-snowflake"></i></div>
+            <p>Artic</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>camping</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-football"></i></div>
+            <p>play</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-igloo"></i></div>
+            <p>dome</p>
+        </div>
+        
+        <div id="tax-control">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">display total before taxes</label>
+              </div>
+        </div>
+    </div>
+    <h3>All listings :</h3>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 mt-3">
+        <%for(let listing of allListings){%>
+            <a href="/listings/<%= listing._id %>" class = "listing-link">
+                <div class="card col listing-card" style="width: 20rem;">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing image" style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                    <p class="card-text">
+                        <%= listing.title %><br>
+                        price :- &#8377 <%= listing.price.toLocaleString("en-IN") %>/night <i class="tax-info"> &nbsp;+&nbsp;18% gst</i>
+                    </p>
+                    </div>
+                </div>
+            </a>
+        <%}%>
+    </div>
+</body>
+<script>
+    let TaxSwitch = document.getElementById('flexSwitchCheckDefault');
+    let taxInfo = document.getElementsByClassName('tax-info');
+    TaxSwitch.addEventListener("click", ()=>{
+        console.log(taxInfo)
+        for(info of taxInfo){
+            if(info.style.display != 'inline'){
+                info.style.display = 'inline';
+            }else{
+                info.style.display = 'none'
+            }
+        }
+        
+    })
+</script>
