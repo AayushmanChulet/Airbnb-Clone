@@ -8,8 +8,10 @@
         }
 
         .filter{
+            border : none;
+            background-color: transparent;
             text-align: center;
-            margin-right: 2rem;
+            margin-right: 1.5rem;
             margin-top: 2rem;
             opacity: 0.7;
         }
@@ -27,7 +29,7 @@
             border-radius: 1rem;
             height: 3.5rem;
             padding: 1rem;
-            margin-left: 3rem;
+            margin-left: 2rem;
             display: flex;
             align-items: center;
         }
@@ -37,50 +39,71 @@
         }
     </style>
     <div id="filters">
-        
-        <div class="filter">
+        <div>
+            <button class="filter" value="Trending">
             <div><i class="fa-solid fa-fire"></i></div>
             <p>Trending</p>
+            </button>
         </div>
-        <div class="filter">
+        <div >
+            <button class="filter" value="Amazing_pools">
             <div><i class="fa-solid fa-water-ladder"></i></div>
             <p>Amazing pools</p>
+            </button>
         </div>
-        <div class="filter">
+        <div>
+            <button class="filter" value="Farms">
             <div><i class="fa-solid fa-tractor"></i></div>
             <p>Farms</p>
+            </button>
         </div>
-        <div class="filter">
+        <div>
+            <button class="filter" value="Iconic_cities">
             <div><i class="fa-solid fa-monument"></i></div>
             <p>Iconic cities</p>
+            </button>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountains</p>
+        <div>
+            <button class="filter" value="Mountains">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </button>
+            </div>
+        <div>
+            <button class="filter" value="Beaches">
+                <div><i class="fa-solid fa-umbrella-beach"></i></div>
+                <p>Beaches</p>
+            </button>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-umbrella-beach"></i></div>
-            <p>Beaches</p>
+        <div>
+            <button class="filter" value="Castle">
+                <div><i class="fa-brands fa-fort-awesome"></i></div>
+                <p>Castle</p>
+            </button>
         </div>
-        <div class="filter">
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Castle</p>
+        <div>
+            <button class="filter" value="Arctic">
+                <div><i class="fa-regular fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </button>
         </div>
-        <div class="filter">
-            <div><i class="fa-regular fa-snowflake"></i></div>
-            <p>Artic</p>
+        <div>
+            <button class="filter" value="Camping">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </button>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-campground"></i></div>
-            <p>camping</p>
+        <div>
+            <button class="filter" value="Play">
+                <div><i class="fa-solid fa-football"></i></div>
+                <p>Play</p>
+            </button>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-football"></i></div>
-            <p>play</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-igloo"></i></div>
-            <p>dome</p>
+        <div>
+            <button class="filter" value="Dome">
+                <div><i class="fa-solid fa-igloo"></i></div>
+                <p>Dome</p>
+            </button>
         </div>
         
         <div id="tax-control">
@@ -93,6 +116,7 @@
     <h3>All listings :</h3>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 mt-3">
         <%for(let listing of allListings){%>
+            <div class="<%= listing.category %> listings">
             <a href="/listings/<%= listing._id %>" class = "listing-link">
                 <div class="card col listing-card" style="width: 20rem;">
                     <img src="<%= listing.image.url %>" class="card-img-top" alt="listing image" style="height: 20rem;">
@@ -105,10 +129,28 @@
                     </div>
                 </div>
             </a>
+        </div>
         <%}%>
     </div>
 </body>
 <script>
+    //category sort
+    let btns = document.querySelectorAll('.filter')
+    let listings = document.querySelectorAll('.listings');
+    for (btn of btns) {
+        btn.addEventListener('click', function() {
+            for(listing of listings){
+                listing.style.display = 'inline';
+            }
+            for(listing of listings){
+                if(!listing.classList.contains(`${this.value}`)){
+                    listing.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    //tax switch function
     let TaxSwitch = document.getElementById('flexSwitchCheckDefault');
     let taxInfo = document.getElementsByClassName('tax-info');
     TaxSwitch.addEventListener("click", ()=>{
